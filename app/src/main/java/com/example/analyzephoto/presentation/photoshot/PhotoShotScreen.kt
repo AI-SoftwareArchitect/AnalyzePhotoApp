@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -30,7 +29,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun PhotoShotScreen(
     onNavigateToAnalyze: (String) -> Unit,
-    viewModel: PhotoShotViewModel = hiltViewModel()
+    viewModel: PhotoShotViewModel = hiltViewModel(),
+    onPhotoTaken: Any
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current

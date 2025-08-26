@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
@@ -75,7 +76,7 @@ class AlbumViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 // Simulate loading photos
-                kotlinx.coroutines.delay(1000)
+                delay(1000)
                 val mockPhotos = generateMockPhotos()
 
                 _state.value = _state.value.copy(
@@ -166,7 +167,7 @@ class AlbumViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 // Simulate delete operation
-                kotlinx.coroutines.delay(500)
+                delay(500)
 
                 val updatedPhotos = _state.value.photos.filter { it.id != photoId }
                 _state.value = _state.value.copy(
@@ -203,7 +204,7 @@ class AlbumViewModel @Inject constructor(
         _state.value = _state.value.copy(isRefreshing = true)
         viewModelScope.launch {
             try {
-                kotlinx.coroutines.delay(1500)
+                delay(1500)
                 val mockPhotos = generateMockPhotos()
                 _state.value = _state.value.copy(
                     isRefreshing = false,
@@ -255,102 +256,42 @@ class AlbumViewModel @Inject constructor(
                 id = "1",
                 name = "Sunset Beach",
                 createdAt = currentTime - 86400000L * 2, // 2 days ago
-                size = 2048,
+                size = 2048.toString(),
                 editMode = EditMode.ORIGINAL,
-                uri = "content://photos/sunset_beach"
+                uri = "content://photos/sunset_beach",
+                thumbnailUri = TODO(),
+                improvements = TODO()
             ),
             PhotoItem(
                 id = "2",
                 name = "Mountain View",
                 createdAt = currentTime - 86400000L * 10, // 10 days ago
-                size = 4096,
+                size = 4096.toString(),
                 editMode = EditMode.EDITED,
-                uri = "content://photos/mountain_view"
+                uri = "content://photos/mountain_view",
+                thumbnailUri = TODO(),
+                improvements = TODO()
             ),
             PhotoItem(
                 id = "3",
                 name = "City Lights",
                 createdAt = currentTime - 86400000L * 5, // 5 days ago
-                size = 1024,
+                size = 1024.toString(),
                 editMode = EditMode.ORIGINAL,
-                uri = "content://photos/city_lights"
+                uri = "content://photos/city_lights",
+                thumbnailUri = TODO(),
+                improvements = TODO()
             ),
             PhotoItem(
                 id = "4",
                 name = "Forest Trail",
                 createdAt = currentTime - 86400000L * 1, // 1 day ago
-                size = 3072,
+                size = 3072.toString(),
                 editMode = EditMode.EDITED,
-                uri = "content://photos/forest_trail"
+                uri = "content://photos/forest_trail",
+                thumbnailUri = TODO(),
+                improvements = TODO()
             )
         )
     }
-}
-
-// Ek olarak PhotoItem ve diğer gerekli sınıfların örnek tanımları:
-
-data class PhotoItem(
-    val id: String,
-    val name: String,
-    val createdAt: Long,
-    val size: Int, // Boyut KB veya byte cinsinden
-    val editMode: EditMode,
-    val uri: String
-)
-
-data class AlbumState(
-    val photos: List<PhotoItem> = emptyList(),
-    val filteredPhotos: List<PhotoItem> = emptyList(),
-    val isLoading: Boolean = false,
-    val isRefreshing: Boolean = false,
-    val error: String? = null,
-    val searchQuery: String = "",
-    val selectedDateRange: DateRange? = null,
-    val selectedEditMode: EditMode? = null,
-    val selectedPhotoId: String? = null,
-    val showFilters: Boolean = false,
-    val sortOrder: SortOrder = SortOrder.DATE_DESC,
-    val viewMode: ViewMode = ViewMode.GRID,
-    val totalPhotos: Int = 0
-)
-
-sealed class AlbumIntent {
-    object LoadPhotos : AlbumIntent()
-    data class SearchPhotos(val query: String) : AlbumIntent()
-    data class FilterByDate(val dateRange: DateRange) : AlbumIntent()
-    data class FilterByEditMode(val editMode: EditMode?) : AlbumIntent()
-    object ClearFilters : AlbumIntent()
-    data class SelectPhoto(val photoId: String) : AlbumIntent()
-    data class DeletePhoto(val photoId: String) : AlbumIntent()
-    data class SharePhoto(val photoId: String) : AlbumIntent()
-    object ToggleViewMode : AlbumIntent()
-    object RefreshPhotos : AlbumIntent()
-    data class OnPhotosLoaded(val photos: List<PhotoItem>) : AlbumIntent()
-    data class OnError(val error: String) : AlbumIntent()
-}
-
-sealed class AlbumEffect {
-    data class ShowMessage(val message: String) : AlbumEffect()
-    data class ShowError(val error: String) : AlbumEffect()
-    data class ShowPhotoDetails(val photoId: String) : AlbumEffect()
-    data class SharePhoto(val uri: String, val name: String) : AlbumEffect()
-}
-
-data class DateRange(
-    val startDate: Long,
-    val endDate: Long
-)
-
-enum class EditMode {
-    ORIGINAL, EDITED
-}
-
-enum class SortOrder {
-    DATE_ASC, DATE_DESC,
-    NAME_ASC, NAME_DESC,
-    SIZE_ASC, SIZE_DESC
-}
-
-enum class ViewMode {
-    GRID, LIST
 }

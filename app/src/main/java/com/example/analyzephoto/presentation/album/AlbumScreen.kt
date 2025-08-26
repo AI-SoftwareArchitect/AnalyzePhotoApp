@@ -1,5 +1,6 @@
 package com.example.analyzephoto.presentation.album
 
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.foundation.background
@@ -12,10 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,43 +22,44 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.analyzephoto.presentation.theme.Gold
 import com.example.analyzephoto.presentation.theme.Black
 import kotlinx.coroutines.flow.collectLatest
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlbumScreen(
     viewModel: AlbumViewModel = hiltViewModel(),
     onPhotoSelected: (String) -> Unit
 ) {
     val state by viewModel.state.collectAsState()
-    val scaffoldState = rememberScaffoldState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     // Listen for one-time effects
     LaunchedEffect(key1 = true) {
         viewModel.effect.collectLatest { effect ->
             when (effect) {
                 is AlbumEffect.ShowMessage -> {
-                    scaffoldState.snackbarHostState.showSnackbar(effect.message)
+                    snackbarHostState.showSnackbar(effect.message)
                 }
                 is AlbumEffect.ShowError -> {
-                    scaffoldState.snackbarHostState.showSnackbar("Error: ${effect.error}")
+                    snackbarHostState.showSnackbar("Error: ${effect.error}")
                 }
                 is AlbumEffect.ShowPhotoDetails -> {
                     onPhotoSelected(effect.photoId)
                 }
-                // Add other effects if needed
                 else -> {}
             }
         }
     }
 
     Scaffold(
-        scaffoldState = scaffoldState,
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
                 title = { Text("Album", color = Gold) },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
+                colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Black
                 )
             )
@@ -126,13 +124,13 @@ fun SearchBar(
                 tint = Gold
             )
         },
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Black,
-            textColor = Gold,
-            cursorColor = Gold,
-            focusedIndicatorColor = Gold,
-            unfocusedIndicatorColor = Gold.copy(alpha = 0.5f),
-            placeholderColor = Gold.copy(alpha = 0.6f)
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = MaterialTheme.colorScheme.surface,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+            errorContainerColor = MaterialTheme.colorScheme.error,
+            focusedTextColor = MaterialTheme.colorScheme.onSurface,
+            unfocusedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            cursorColor = MaterialTheme.colorScheme.primary
         ),
         singleLine = true,
         modifier = Modifier

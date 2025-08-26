@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.navigation.runtime.android)
+    implementation(libs.androidx.room.runtime.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

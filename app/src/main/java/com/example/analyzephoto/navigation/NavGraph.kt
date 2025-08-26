@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.example.analyzephoto.presentation.album.AlbumScreen
 import com.example.analyzephoto.presentation.analyze.AnalyzePhotoScreen
 import com.example.analyzephoto.presentation.login.LoginScreen
+import com.example.analyzephoto.presentation.photoshot.PhotoShotScreen
 import com.example.analyzephoto.presentation.register.RegisterScreen
 
 @Composable
@@ -26,9 +27,13 @@ fun PhotoEditorNavGraph(navController: NavHostController) {
             )
         }
         composable("photoShot") {
-            PhotoShotScreen(onPhotoTaken = { uri ->
-                navController.navigate("analyze/${uri.toString()}")
-            })
+            PhotoShotScreen(
+                onPhotoTaken = { uri ->
+                    navController.navigate("analyze/${uri.toString()}")
+                },
+                onNavigateToAnalyze = TODO(),
+                viewModel = TODO()
+            )
         }
         composable("analyze/{photoUri}") { backStackEntry ->
             val uri = backStackEntry.arguments?.getString("photoUri") ?: ""

@@ -15,12 +15,3 @@ data class AlbumState(
     val totalPhotos: Int = 0,
     val sortOrder: SortOrder = SortOrder.DATE_DESC
 )
-
-enum class SortOrder {
-    DATE_ASC,
-    DATE_DESC,
-    NAME_ASC,
-    NAME_DESC,
-    SIZE_ASC,
-    SIZE_DESC
-}

@@ -14,29 +14,3 @@ sealed class AlbumIntent {
     data class OnPhotosLoaded(val photos: List<PhotoItem>) : AlbumIntent()
     data class OnError(val error: String) : AlbumIntent()
 }
-
-data class PhotoItem(
-    val id: String,
-    val name: String,
-    val uri: String,
-    val thumbnailUri: String,
-    val createdAt: Long,
-    val editMode: EditMode,
-    val size: String,
-    val improvements: List<String>
-)
-
-enum class EditMode {
-    CLEAN_MODE,
-    FIX_MODE
-}
-
-enum class ViewMode {
-    GRID,
-    LIST
-}
-
-data class DateRange(
-    val startDate: Long,
-    val endDate: Long
-)

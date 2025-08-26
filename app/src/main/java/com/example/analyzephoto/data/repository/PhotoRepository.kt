@@ -1,8 +1,10 @@
 package com.example.analyzephoto.data.repository
 import com.example.analyzephoto.data.local.dao.PhotoDao
+import com.example.analyzephoto.data.local.entity.PhotoEntity
 import com.example.analyzephoto.domain.model.Photo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 class PhotoRepository @Inject constructor(private val photoDao: PhotoDao) {
 

@@ -1,12 +1,17 @@
 package com.example.analyzephoto.di
 
+import android.content.Context
+import androidx.room.Room
+import androidx.room.Room.databaseBuilder
+import com.example.analyzephoto.data.local.database.PhotoDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-// di/AppModule.kt
+
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
@@ -14,7 +19,7 @@ object AppModule {
     @Provides
     @Singleton
     fun providePhotoDatabase(@ApplicationContext context: Context): PhotoDatabase {
-        return Room.databaseBuilder(
+        return databaseBuilder(
             context,
             PhotoDatabase::class.java,
             "photo_db"

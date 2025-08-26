@@ -41,7 +41,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun RegisterScreen(
     navController: NavController,
-    viewModel: RegisterViewModel = hiltViewModel()
+    viewModel: RegisterViewModel = hiltViewModel(),
+    onRegisterSuccess: () -> Unit
 ) {
     val state = viewModel.state.value
     val snackbarHostState = remember { SnackbarHostState() }
