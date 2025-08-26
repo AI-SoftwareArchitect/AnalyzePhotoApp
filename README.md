@@ -1,5 +1,5 @@
 📸 Photo Editor App
-Photo Editor App, kullanıcıların fotoğraf çekmesini, düzenlemesini ve organize etmesini sağlayan, modern bir Android uygulamasıdır. Artırılmış gerçeklik (AR) destekli canlı filtreler, gelişmiş düzenleme modları ve sezgisel bir kullanıcı arayüzü ile fotoğrafçılık deneyimini bir üst seviyeye taşır.
+Photo Editor App, kullanıcıların fotoğraf çekmesini, düzenlemesini ve organize etmesini sağlayan modern bir Android uygulamasıdır. Artırılmış gerçeklik (AR) destekli canlı filtreler, gelişmiş düzenleme modları ve sezgisel bir kullanıcı arayüzü ile fotoğrafçılık deneyimini bir üst seviyeye taşır.
 
 ✨ Temel Özellikler
 Siyah & Altın Tema: Şık, minimalist ve göz yormayan, tamamen siyah ve altın renklerinden oluşan bir arayüz. Butonlar ve diğer interaktif elemanlarda altın rengi, gradyanlar ve akıcı animasyonlar kullanılarak modern bir estetik sağlanmıştır.
